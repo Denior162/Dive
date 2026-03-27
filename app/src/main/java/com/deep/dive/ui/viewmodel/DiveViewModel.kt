@@ -2,8 +2,12 @@ package com.deep.dive.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.deep.dive.ui.DiveIntent
-import com.deep.dive.ui.theme.AppState
+import com.deep.dive.ui.state.AppState
+import com.deep.dive.ui.state.AppState.Initialized.Authorized.WithoutLocation
+import com.deep.dive.ui.state.DiveIntent
+import com.deep.dive.ui.state.LocationReason
+import com.deep.dive.ui.state.NavScreen
+import com.deep.dive.ui.state.NavScreen.MapView.SheetOpened
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -35,20 +39,29 @@ class DiveViewModel : ViewModel() {
     ): AppState {
         return when (intent) {
             is DiveIntent.Login -> {
-                AppState.Initialized.Authorized.MapView.SheetClosed
+                WithoutLocation(
+                    reason = LocationReason.Pending,
+                    navScreen = NavScreen.MapView.SheetClosed
+                )
             }
 
             is DiveIntent.SheetClose -> {
-                if (state is AppState.Initialized.Authorized.MapView) {
-                    AppState.Initialized.Authorized.MapView.SheetClosed
+                if (state is AppState.Initialized.Authorized) {
+                    state.updateNav(NavScreen.MapView.SheetClosed)
                 } else state
             }
 
             is DiveIntent.Select -> {
-                if (state is AppState.Initialized.Authorized.MapView) {
-                    AppState.Initialized.Authorized.MapView.SheetOpened(intent.point)
+                if (state is AppState.Initialized.Authorized) {
+                    state.updateNav(SheetOpened(intent.spot))
                 } else state
             }
         }
+    }
+}
+private fun AppState.Initialized.Authorized.updateNav(newNav: NavScreen): AppState {
+    return when (this) {
+        is AppState.Initialized.Authorized.WithLocation -> this.copy(navScreen = newNav)
+        is WithoutLocation -> this.copy(navScreen = newNav)
     }
 }
