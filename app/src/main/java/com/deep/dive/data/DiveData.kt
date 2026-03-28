@@ -12,7 +12,7 @@ object DiveData {
             type = SpotType.WRECK,
             location = "West Palm Beach",
             coordinates = Point.fromLngLat(-80.00968, 26.47178),
-            depth = "90Ft"
+            depth = 90..90
         ),
         DiveSpot(
             id = "rodeo25",
@@ -20,7 +20,7 @@ object DiveData {
             type = SpotType.WRECK,
             location = "Pompano Beach",
             coordinates = Point.fromLngLat(-80.03813, 26.13878),
-            depth = "90-122Ft"
+            depth = 90..122
         ),
         DiveSpot(
             id = "tortuga",
@@ -28,7 +28,7 @@ object DiveData {
             type = SpotType.WRECK,
             location = "Miami",
             coordinates = Point.fromLngLat(-80.04616, 25.53373),
-            depth = "90-110Ft"
+            depth = 90..110
         ),
         DiveSpot(
             id = "zoo",
@@ -36,7 +36,7 @@ object DiveData {
             type = SpotType.REEF,
             location = "West Palm Beach",
             coordinates = Point.fromLngLat(-79.59320, 26.48190),
-            depth = "86Ft"
+            depth = 86..86
         ),
         DiveSpot(
             id = "black_rock",
@@ -44,7 +44,7 @@ object DiveData {
             type = SpotType.REEF,
             location = "West Palm Beach",
             coordinates = Point.fromLngLat(-80.00157, 26.48826),
-            depth = "85-100Ft"
+            depth = 85..100
         )
     )
 }

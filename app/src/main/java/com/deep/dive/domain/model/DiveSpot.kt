@@ -8,5 +8,5 @@ data class DiveSpot(
     val type: SpotType,
     val location: String,
     val coordinates: Point,
-    val depth: String
+    val depth: IntRange
 )
