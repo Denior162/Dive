@@ -7,7 +7,7 @@ enum class LocationPrecision {
 }
 
 sealed interface DiveIntent {
-    data object Login : DiveIntent
+    data class Login(val email: String, val password: String) : DiveIntent
     data object SheetClose : DiveIntent
     data class Select(val spot: DiveSpot) : DiveIntent
 
@@ -20,5 +20,4 @@ sealed interface DiveIntent {
         val precision: LocationPrecision
     ) : DiveIntent
     data object LocationDenied : DiveIntent
-
 }
